@@ -1,1 +1,1 @@
-# flask + tailwindCSS
+# flask + jinja + tailwind
