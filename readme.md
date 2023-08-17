@@ -1,1 +1,1 @@
-# flask exam app with tailwindCSS
+# flask + tailwindCSS
