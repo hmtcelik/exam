@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% include "./includes/navbar.html" %} {% block
+content %}
+
+<div class="mx-auto max-w-screen-sm px-4 sm:px-6 lg:px-8 mb-8">
+  <div class="mt-10">
+    <p class="text-4xl">Skorunuz: <span class="font-bold">{{score}}/5</span></p>
+  </div>
+
+  <div class="flex justify-start mt-8 gap-4">
+    <a href="{{ url_for('exam.exam_') }}">
+      <button
+        class="inline-block justify-end shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
+      >
+        Yeni Sınav Yap
+      </button>
+    </a>
+  </div>
+  <div class="flex justify-start mt-4 gap-4">
+    <a href="{{ url_for('main.index') }}">
+      <button
+        class="inline-block justify-end shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
+      >
+        Liderlik Tablosunu Gör
+      </button>
+    </a>
+  </div>
+</div>
+
+{% endblock %}

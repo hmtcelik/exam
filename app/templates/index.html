@@ -1,56 +1,130 @@
-{% extends "base.html" %}
-
-{% include "./includes/navbar.html" %}
-
-{% block content %}
-
-<!--
-  Heads up! 👋
-
-  This component comes with some `rtl` classes. Please remove them if they are not needed in your project.
--->
+{% extends "base.html" %} {% include "./includes/navbar.html" %} {% block
+content %}
 
 <div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
-    <div class="max-w-xs">
-        <label for="HeadlineAct" class="block text-sm font-medium text-gray-900">
-            Şehir Seçimi
-        </label>
+  <div class="max-w-xs">
+    <h1 class="text-3xl font-bold">Hava Durumu</h1>
 
-        <select name="HeadlineAct" id="HeadlineAct"
-            class="mt-1.5 w-full h-10 p-2 cursor-pointer rounded-md border-2 border-gray-400 text-gray-700 sm:text-sm">
-            <option value="1">İstanbul</option>
-            <option value="2">Ankara</option>
-        </select>
-    </div>
-    <div class="my-10 overflow-x-auto rounded-lg border border-gray-200">
-        <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
-            <thead class="text-left">
-                <tr>
-                    <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                        Tarih
-                    </th>
-                    <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                        Durum
-                    </th>
-                    <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                        Gündüz °C
-                    </th>
-                    <th class="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                        Gece °C
-                    </th>
-            </thead>
+    <label
+      for="citySelection"
+      class="mt-6 block text-sm font-medium text-gray-900"
+    >
+      Şehir Seçimi
+    </label>
 
-            <tbody class="divide-y divide-gray-200">
-                <tr>
-                    <td class="whitespace-nowrap px-4 py-2 text-gray-700">23.08.2023 (Pazartesi)</td>
-                    <td class="whitespace-nowrap px-4 py-2 text-gray-700">Parçalı Bulutlu</td>
-                    <td class="whitespace-nowrap px-4 py-2 text-gray-700">23</td>
-                    <td class="whitespace-nowrap px-4 py-2 text-gray-700">12</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    <select
+      name="citySelection"
+      id="citySelection"
+      class="mt-1.5 w-full h-10 p-2 cursor-pointer rounded-md border-2 border-gray-400 text-gray-700 sm:text-sm"
+    >
+      <option value="1" selected>İstanbul</option>
+      <option value="2">Ankara</option>
+    </select>
+  </div>
 
+  <div class="my-10 overflow-x-auto rounded-lg border border-gray-200">
+    <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+      <thead class="text-left">
+        <tr>
+          <th class="whitespace-nowrap px-4 py-2 font-bold text-gray-900">
+            Tarih
+          </th>
+          <th class="whitespace-nowrap px-4 py-2 font-bold text-gray-900">
+            Şehir
+          </th>
+          <th class="whitespace-nowrap px-4 py-2 font-bold text-gray-900">
+            Gündüz
+          </th>
+          <th class="whitespace-nowrap px-4 py-2 font-bold text-gray-900">
+            Gece
+          </th>
+        </tr>
+      </thead>
+
+      <tbody class="divide-y divide-gray-200">
+        {% for w in weather['Istanbul'] %}
+        <tr class="city-1">
+          <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+            {{w['date']}} {{(w['tr'])}}
+          </td>
+          <td class="whitespace-nowrap px-4 py-2 text-gray-700">İstanbul</td>
+          <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+            {{w['day']}} °C
+          </td>
+          <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+            {{w['night']}} °C
+          </td>
+        </tr>
+        {% endfor%} {% for w in weather['Ankara'] %}
+        <tr class="city-2">
+          <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+            {{w['date']}} {{(w['tr'])}}
+          </td>
+          <td class="whitespace-nowrap px-4 py-2 text-gray-700">Ankara</td>
+          <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+            {{w['day']}} °C
+          </td>
+          <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+            {{w['night']}} °C
+          </td>
+        </tr>
+        {% endfor%}
+      </tbody>
+    </table>
+  </div>
+
+  <h1 class="text-3xl font-bold">Liderlik Tablosu</h1>
+
+  <div class="my-8 overflow-x-auto rounded-lg border border-gray-200">
+    <table class="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+      <thead class="text-left">
+        <tr>
+          <th class="whitespace-nowrap px-4 py-2 font-bold text-gray-900"></th>
+          <th class="whitespace-nowrap px-4 py-2 font-bold text-gray-900">
+            Takma Ad
+          </th>
+          <th class="whitespace-nowrap px-4 py-2 font-bold text-gray-900">
+            Toplam Skor
+          </th>
+        </tr>
+      </thead>
+
+      <tbody class="divide-y divide-gray-200">
+        {% for row in leaderboard %}
+        <tr>
+          <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+            {{loop.index}}.
+          </td>
+          <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+            {{row.user.nickname}}
+          </td>
+          <td class="whitespace-nowrap px-4 py-2 text-gray-700">
+            {{row.score}}
+          </td>
+        </tr>
+        {%endfor%}
+      </tbody>
+    </table>
+  </div>
 </div>
+
+<script>
+  $(document).ready(function () {
+    $(".city-2").hide();
+
+    $("#citySelection").on("change", function (e) {
+      var optionSelected = $("option:selected", this);
+      var valueSelected = this.value;
+      console.log(valueSelected == 1);
+      if (valueSelected == "1") {
+        $(".city-1").show();
+        $(".city-2").hide();
+      } else {
+        $(".city-1").hide();
+        $(".city-2").show();
+      }
+    });
+  });
+</script>
 
 {% endblock %}
