@@ -1,3 +1,1 @@
-# flask task kodland
-
-abdulhamit celik
+# flask exam app with tailwindCSS
